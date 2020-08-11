@@ -1,0 +1,15 @@
+<div [style.height]="overlapHeight">
+    
+    <div *ngIf="faceUp; else down" class="card" [style.color]="color">
+        <div class="right">{{value}}<br><span [innerHtml]="suit" ></span></div>
+    
+        <div class="center"><span [innerHtml]="suit" ></span></div>
+    
+        <div class="left"><span [innerHtml]="suit" ></span><br>{{value}}</div>
+    </div>
+    
+    <ng-template #down>
+        <div class="card facedown"></div>
+    </ng-template>
+    
+</div>
