@@ -11,7 +11,7 @@
     flex-direction: row;
     background-color: white;
     position: absolute;
-    font-family: "Times New Roman", Times, serif;
+    font-family: Arial, Helvetica, sans-serif,sans-serif;
     font-weight: bold;
 
 
@@ -30,17 +30,15 @@
     align-self: center;
     justify-self: center;
     text-align: center;
-    width: 80%;
+    width: 60%;
 }
 .left {
-    text-align: left;
-    align-self: flex-end;
-    justify-self: left;
-    width: 10%;
+    text-align: center;
+    align-self: flex-start;   
+    width: 20%;
 }
 .right {
-    text-align: right;
-    align-self: flex-start;
-    justify-self: right;
-    width: 10%;
+    text-align: center;
+    align-self: flex-end;
+    width: 20%;
 }

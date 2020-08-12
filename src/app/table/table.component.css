@@ -1,0 +1,12 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto auto;
+    grid-gap: 1px;
+    padding: 30px;
+    background-color: seagreen;
+    height: 100vh;
+}
+
+.grid-tableau {
+    grid-row: 1 / 5;
+}

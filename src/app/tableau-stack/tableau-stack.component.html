@@ -1,0 +1,11 @@
+    <div cdkDropList style="display: inline-block;">
+        <div *ngFor="let card of faceDownCards" >
+            <app-card [value]="deck.values[card.value]" [faceUp]="false" [suit]="deck.suits[card.suit]" ></app-card>
+        </div>
+    
+        <div *ngFor="let card of faceUpCards" cdkDrag>
+            <div *cdkDragPlaceholder></div>
+            <app-card [value]="deck.values[card.value]" [faceUp]="true" [suit]="deck.suits[card.suit]"  ></app-card>
+        </div>
+    </div>
+    
