@@ -1,12 +1,19 @@
 .grid-container {
     display: grid;
-    grid-template-columns: auto auto auto auto auto auto auto auto;
-    grid-gap: 1px;
+    grid-template-columns: repeat(8, auto);
+    justify-content: space-between;
+
     padding: 30px;
+
+}
+.general-container {
     background-color: seagreen;
-    height: 100vh;
+    height: 100%;
+    
 }
 
-.grid-tableau {
-    grid-row: 1 / 5;
+.foundation {
+    display: flex;  
+    flex-direction: column;
 }
+

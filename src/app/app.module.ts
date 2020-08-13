@@ -8,6 +8,7 @@ import { TableauStackComponent } from './tableau-stack/tableau-stack.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { TableComponent } from './table/table.component';
+import { FoundationStackComponent } from './foundation-stack/foundation-stack.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { TableComponent } from './table/table.component';
     CardComponent,
     AddHostDirective,
     TableauStackComponent,
-    TableComponent
+    TableComponent,
+    FoundationStackComponent
   ],
   imports: [
     BrowserModule,

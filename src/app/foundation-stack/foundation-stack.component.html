@@ -1,0 +1,4 @@
+<div *ngIf="foundationStack.stack.length === 0; else lastCard" class="foundation"><span class="element">{{suit}}</span></div>
+<ng-template #lastCard>
+    <app-card [faceUp]="true" [card]="foundationStack.stack[foundationStack.stack.length-1]" ></app-card>
+</ng-template>

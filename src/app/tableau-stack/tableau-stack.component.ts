@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem, CdkDrag} from '@angular/cdk/drag-drop';
 import { Card } from "../Models/card";
 import { Deck } from "../Models/deck";
+import { TableauStack } from '../Models/tableauStack';
 @Component({
   selector: 'app-tableau-stack',
   templateUrl: './tableau-stack.component.html',
@@ -10,19 +11,13 @@ import { Deck } from "../Models/deck";
 export class TableauStackComponent implements OnInit {
 
   constructor() { }
+  @Input() tableauStack: TableauStack;
   faceUpCards: Card[];
   faceDownCards: Card[];
-  deck: Deck;
 
   ngOnInit(): void {
-    this.faceDownCards = [];
-    this.faceUpCards = [];
-    this.deck = new Deck();
-    this.deck.populateDeck();
-    for(let i=0; i<3;i++){
-      this.faceDownCards.push(this.deck.popCard());
-      this.faceUpCards.push(this.deck.popCard());
-    }
+    this.faceDownCards = this.tableauStack.faceDownStack;
+    this.faceUpCards = this.tableauStack.faceUpStack;
   }
 
 }
