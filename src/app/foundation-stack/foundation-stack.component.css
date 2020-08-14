@@ -1,17 +1,14 @@
 .foundation {
     border-style: solid;
-    border-width: 0.04rem;
-    border-radius: 0.7rem;
+
     border-color: black;
     
 
-    height: 10rem;
-    width: 6.5rem;
-        
+
     position: relative;
     font-family: Arial, Helvetica, sans-serif,sans-serif;
     font-weight: bold;
-    font-size: 300%;
+    
     text-align: center;
     display: flex;
 
@@ -25,15 +22,11 @@
 .element{
     align-self: center;   
     width: 100%;
+    font-size: 300%;
 }
 
 .foundation-card {
-    
-    
-
-    height: 10rem;
-    width: 6.5rem;
-        
+          
     position: relative;
     font-family: Arial, Helvetica, sans-serif,sans-serif;
     font-weight: bold;

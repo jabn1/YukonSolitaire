@@ -1,9 +1,10 @@
-    <div style="width: 7rem; height: 100%;"
+    <div style="height: 100%;" 
+        [style.width.px]="this.tableService.baseCardDimension"
         cdkDropList
         [cdkDropListData]="tableauStack" 
         (cdkDropListDropped)="drop($event)"
         >
-        <div class="tableau"></div>
+        <div class="tableau" [style]="tableService.cardDimension"></div>
         <div *ngFor="let cardFD of faceDownCards" >
             <app-card  [faceUp]="false" [card]="cardFD" ></app-card>
         </div>

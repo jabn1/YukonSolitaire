@@ -1,19 +1,15 @@
 <div cdkDropList
 [cdkDropListData]="foundationStack" 
-(cdkDropListDropped)="drop($event)">
+(cdkDropListDropped)="drop($event)"
+>
 
-    <div *ngIf="foundationStack.stack.length === 0; else lastCard" class="foundation"><span class="element">{{suit}}</span></div>
+    <div *ngIf="foundationStack.stack.length === 0; else lastCard" class="foundation" [style]="tableService.cardDimension"><span class="element">{{suit}}</span></div>
     <ng-template #lastCard>
-        <div class="foundation-card">
+        <div class="foundation-card" [style]="tableService.cardDimension">
             <app-card [faceUp]="true" [card]="foundationStack.stack[foundationStack.stack.length-1]" ></app-card>
         </div>
         
     </ng-template>
 
-
-    <!-- <div *ngIf="foundationStack.stack.length === 0; else lastCard" class="foundation"><span class="element">{{suit}}</span></div>
-    <ng-template #lastCard>
-        <app-card [faceUp]="true" [card]="foundationStack.stack[foundationStack.stack.length-1]" ></app-card>
-    </ng-template> -->
 
 </div>

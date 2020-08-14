@@ -1,12 +1,10 @@
 .card {
     border-style: solid;
-    border-width: 0.04rem;
-    border-radius: 0.7rem;
     border-color: black;
     
-    padding: 0.2rem;
-    height: 10rem;
-    width: 6.5rem;
+    padding: 0.2%;
+
+    
     display: flex;
     flex-direction: row;
     background-color: white;

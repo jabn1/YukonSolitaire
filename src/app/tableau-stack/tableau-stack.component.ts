@@ -3,6 +3,7 @@ import {CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Card } from "../Models/card";
 
 import { TableauStack } from '../Models/tableauStack';
+import { TableService } from '../table.service';
 @Component({
   selector: 'app-tableau-stack',
   templateUrl: './tableau-stack.component.html',
@@ -10,7 +11,7 @@ import { TableauStack } from '../Models/tableauStack';
 })
 export class TableauStackComponent implements OnInit {
 
-  constructor() { }
+  constructor(public tableService: TableService) { }
   @Input() tableauStack: TableauStack;
   faceUpCards: Card[];
   faceDownCards: Card[];

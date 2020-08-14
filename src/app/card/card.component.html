@@ -1,6 +1,6 @@
 <div [style.height]="overlapHeight">
     
-    <div *ngIf="faceUp; else down" class="card" [style.color]="color">
+    <div *ngIf="faceUp; else down" class="card" [style.color]="color" [style]="tableService.cardDimension" >
         <div class="left">
             {{value}}
             <br>
@@ -17,7 +17,7 @@
     </div>
     
     <ng-template #down>
-        <div class="card facedown"></div>
+        <div class="card facedown" [style]="tableService.cardDimension"></div>
     </ng-template>
     
 </div>

@@ -23,10 +23,10 @@ export class CardComponent implements OnInit {
     this.suit = this.tableService.deck.suits[this.card.suit];
 
     if(this.faceUp){
-      this.overlapHeight = '2.5rem'
+      this.overlapHeight = `${this.tableService.baseCardDimension*0.38}px`;
     }
     else{
-      this.overlapHeight = '0.5rem'
+      this.overlapHeight = `${this.tableService.baseCardDimension*0.08}px`;
     }    
     if(this.suit === '♥' || this.suit === '♦'){
       this.color = 'red';
