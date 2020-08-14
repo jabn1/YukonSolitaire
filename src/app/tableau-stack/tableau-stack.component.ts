@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {CdkDragDrop, moveItemInArray, transferArrayItem, CdkDrag} from '@angular/cdk/drag-drop';
+import {CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Card } from "../Models/card";
-import { Deck } from "../Models/deck";
+
 import { TableauStack } from '../Models/tableauStack';
 @Component({
   selector: 'app-tableau-stack',
@@ -18,6 +18,16 @@ export class TableauStackComponent implements OnInit {
   ngOnInit(): void {
     this.faceDownCards = this.tableauStack.faceDownStack;
     this.faceUpCards = this.tableauStack.faceUpStack;
+  }
+
+  drop(event: CdkDragDrop<TableauStack>) {
+    let selectedCard: Card[] = [event.previousContainer.data.faceUpStack[event.previousIndex]];
+    if((typeof(event.previousContainer.data) === typeof(event.container.data)) && (event.container.data.canPushCards(selectedCard)) ){
+      let cards = event.previousContainer.data.spliceCards(event.previousIndex);
+      event.container.data.pushCards(cards);
+      
+      event.previousContainer.data.flipTopCard();
+    }
   }
 
 }

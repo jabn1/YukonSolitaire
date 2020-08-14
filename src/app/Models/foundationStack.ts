@@ -25,4 +25,22 @@ export class FoundationStack {
             return false;
         }
     }
+    canPushCard(card: Card){
+        if (this.stack.length === 0){
+            if(card.value === 1 && card.suit === this.suit){
+                
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        else if(card.suit === this.suit && this.stack[this.stack.length - 1].value + 1 === card.value){
+            
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }

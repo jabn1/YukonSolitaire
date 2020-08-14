@@ -9,7 +9,8 @@
 .general-container {
     background-color: seagreen;
     height: 100%;
-    
+    width: 100%;
+    position: fixed;
 }
 
 .foundation {

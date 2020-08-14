@@ -1,4 +1,8 @@
-    <div cdkDropList >
+    <div style="width: 7rem; height: 100%;"
+        cdkDropList
+        [cdkDropListData]="tableauStack" 
+        (cdkDropListDropped)="drop($event)"
+        >
         <div class="tableau"></div>
         <div *ngFor="let cardFD of faceDownCards" >
             <app-card  [faceUp]="false" [card]="cardFD" ></app-card>
