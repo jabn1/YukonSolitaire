@@ -24,7 +24,7 @@ export class TableauStackComponent implements OnInit {
 
   drop(event: CdkDragDrop<TableauStack>) {
     let selectedCard: Card[] = [event.previousContainer.data.faceUpStack[event.previousIndex]];
-    if((typeof(event.previousContainer.data) === typeof(event.container.data)) && (event.container.data.canPushCards(selectedCard)) ){
+    if((typeof(event.previousContainer.data) === typeof(event.container.data)) && !(event.previousContainer.data === event.container.data) && (event.container.data.canPushCards(selectedCard)) ){
       let cards = event.previousContainer.data.spliceCards(event.previousIndex);
       event.container.data.pushCards(cards);
       
