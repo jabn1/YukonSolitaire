@@ -1,16 +1,26 @@
     <div style="height: 100%;" 
         [style.width.px]="this.tableService.baseCardDimension"
         cdkDropList
-        [cdkDropListData]="tableauStack" 
+        [cdkDropListData]="tableauStack"
+        cdkDropListSortingDisabled
         (cdkDropListDropped)="drop($event)"
+        
         >
         <div class="tableau" [style]="tableService.cardDimension"></div>
         <div *ngFor="let cardFD of faceDownCards" >
             <app-card  [faceUp]="false" [card]="cardFD" ></app-card>
         </div>
     
-        <div *ngFor="let cardFU of faceUpCards" cdkDrag>
+        <div *ngFor="let cardFU of faceUpCards" cdkDrag (cdkDragStarted)="dragStart($event)" (cdkDragReleased)="dragRelease($event)" [cdkDragData]="cardFU">
             <div *cdkDragPlaceholder></div>
+            
+            <div *cdkDragPreview  >
+                <div *ngFor="let cardS of draggedCards">
+                    <app-card [faceUp]="true" [card]="cardS" ></app-card>
+                    
+                </div>
+                test
+            </div>
             <app-card [faceUp]="true" [card]="cardFU" ></app-card>
         </div>
     </div>

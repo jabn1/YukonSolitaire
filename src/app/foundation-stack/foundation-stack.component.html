@@ -5,8 +5,8 @@
 
     <div *ngIf="foundationStack.stack.length === 0; else lastCard" class="foundation" [style]="tableService.cardDimension"><span class="element">{{suit}}</span></div>
     <ng-template #lastCard>
-        <div class="foundation-card" [style]="tableService.cardDimension">
-            <app-card [faceUp]="true" [card]="foundationStack.stack[foundationStack.stack.length-1]" ></app-card>
+        <div *ngFor="let card of [this.foundationStack.stack[this.foundationStack.stack.length-1]]" class="foundation-card" [style]="tableService.cardDimension">
+            <app-card [faceUp]="true" [card]="card" ></app-card>
         </div>
         
     </ng-template>

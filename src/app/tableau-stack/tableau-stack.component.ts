@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {CdkDragDrop } from '@angular/cdk/drag-drop';
+import {CdkDragDrop, CdkDragStart, CdkDragRelease } from '@angular/cdk/drag-drop';
 import { Card } from "../Models/card";
 
 import { TableauStack } from '../Models/tableauStack';
@@ -15,6 +15,7 @@ export class TableauStackComponent implements OnInit {
   @Input() tableauStack: TableauStack;
   faceUpCards: Card[];
   faceDownCards: Card[];
+  draggedCards: Card[];
 
   ngOnInit(): void {
     this.faceDownCards = this.tableauStack.faceDownStack;
@@ -28,6 +29,48 @@ export class TableauStackComponent implements OnInit {
       event.container.data.pushCards(cards);
       
       event.previousContainer.data.flipTopCard();
+    }
+  }
+
+  dragStart(event: CdkDragStart<Card>){
+    //console.log(event.source.data.suit+"  "+event.source.data.value);
+    let selectedIndex: number = -1;
+    //console.log(this.faceUpCards.length);
+    for(let i=0; i < this.faceUpCards.length; i++){
+      //console.log(this.faceUpCards[i].suit+"  "+this.faceUpCards[i].value);
+      if((this.faceUpCards[i].suit === event.source.data.suit) && (this.faceUpCards[i].value === event.source.data.value)){
+        selectedIndex = i;
+        break;
+      }
+    }
+    this.draggedCards=[];
+    for(let i=selectedIndex; i < this.faceUpCards.length; i++){
+      
+      this.draggedCards.push(JSON.parse(JSON.stringify(this.faceUpCards[i])));
+      if(i !== selectedIndex){
+        this.faceUpCards[i].visible = false;
+      }
+      
+    
+    }
+
+    
+    //this.draggedCards = this.tableauStack.spliceCards(selectedIndex);
+
+  }
+
+  dragRelease(event: CdkDragRelease<Card>){
+    let selectedIndex: number = -1;
+    //console.log(this.faceUpCards.length);
+    for(let i=0; i < this.faceUpCards.length; i++){
+      //console.log(this.faceUpCards[i].suit+"  "+this.faceUpCards[i].value);
+      if((this.faceUpCards[i].suit === event.source.data.suit) && (this.faceUpCards[i].value === event.source.data.value)){
+        selectedIndex = i;
+        break;
+      }
+    }
+    for(let i=selectedIndex; i < this.faceUpCards.length; i++){
+      this.faceUpCards[i].visible = true;
     }
   }
 

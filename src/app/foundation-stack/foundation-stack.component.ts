@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { FoundationStack } from '../Models/foundationStack';
 import { TableService } from '../table.service';
 import {CdkDragDrop } from '@angular/cdk/drag-drop';
@@ -16,6 +16,7 @@ export class FoundationStackComponent implements OnInit {
 
   @Input() foundationStack: FoundationStack;
   suit: string;
+  
   ngOnInit(): void {
     this.suit = this.tableService.deck.suits[this.foundationStack.suit];
   }
@@ -26,6 +27,8 @@ export class FoundationStackComponent implements OnInit {
     if(this.foundationStack.canPushCard(selectedCard) && allow){
       event.previousContainer.data.spliceCards(event.previousIndex);
       this.foundationStack.pushCard(selectedCard);
+   
+      console.log(this.foundationStack.stack.length);
       event.previousContainer.data.flipTopCard();
     }
       
