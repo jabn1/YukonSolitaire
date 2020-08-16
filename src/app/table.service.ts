@@ -20,7 +20,7 @@ export class TableService {
       'border-radius': `${0.108*this.baseCardDimension}px`,
       'font-size': `${0.15*this.baseCardDimension}px`
     }
-    this.cardOverlap = {true: {'height': `${this.baseCardDimension*0.38}px`}, false: {'height': `${this.baseCardDimension*0.08}px`}}
+    this.cardOverlap = {true: {'height': `${this.baseCardDimension*0.25}px`}, false: {'height': `${this.baseCardDimension*0.08}px`}}
     
     
   }

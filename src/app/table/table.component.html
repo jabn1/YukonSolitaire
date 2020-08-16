@@ -1,22 +1,6 @@
-<!-- 
-<div class="general-container">
-    <div cdkDropListGroup class="grid-container">
-        <div class="t1"><app-tableau-stack></app-tableau-stack></div>
-        <div class="t2"><app-tableau-stack></app-tableau-stack></div>
-        <div class="t3"><app-tableau-stack></app-tableau-stack></div>
-        <div class="t4"><app-tableau-stack></app-tableau-stack></div>
-        <div class="t5"><app-tableau-stack></app-tableau-stack></div>
-        <div class="t6"><app-tableau-stack></app-tableau-stack></div>
-        <div class="t7"><app-tableau-stack></app-tableau-stack></div>
-        <div class="f1"><app-foundation-stack></app-foundation-stack></div>
-        <div class="f2"><app-foundation-stack></app-foundation-stack></div>
-        <div class="f3"><app-foundation-stack></app-foundation-stack></div>
-        <div class="f4"><app-foundation-stack></app-foundation-stack></div>
-    </div>
-</div> -->
 
 <div class="general-container" (window:resize)="tableService.onResize($event)">
-    <div cdkDropListGroup class="grid-container">
+    <div cdkDropListGroup class="grid-container" [ngStyle]="{'width.px': tableService.baseCardDimension*9.6}" >
         
         <div *ngFor="let tableauStack of tableService.table.tableau" >
             <app-tableau-stack [tableauStack]="tableauStack"></app-tableau-stack>
@@ -30,21 +14,3 @@
         
     </div>
 </div>
-<!-- <div class="general-container">
-    <div cdkDropListGroup class="grid-container">
-        <div class="tab"><app-tableau-stack></app-tableau-stack></div>
-        <div class="tab"><app-tableau-stack></app-tableau-stack></div>
-        <div class="tab"><app-tableau-stack></app-tableau-stack></div>
-        <div class="tab"><app-tableau-stack></app-tableau-stack></div>
-        <div class="tab"><app-tableau-stack></app-tableau-stack></div>
-        <div class="tab"><app-tableau-stack></app-tableau-stack></div>
-        <div class="tab"><app-tableau-stack></app-tableau-stack></div>
-        <div style="display: flex; flex-direction: row;">
-            <div class="f1"><app-foundation-stack></app-foundation-stack></div>
-            <div class="f2"><app-foundation-stack></app-foundation-stack></div>
-            <div class="f3"><app-foundation-stack></app-foundation-stack></div>
-            <div class="f4"><app-foundation-stack></app-foundation-stack></div>
-        </div>
-        
-    </div>
-</div> -->

@@ -2,7 +2,9 @@
     display: grid;
     grid-template-columns: repeat(8, auto);
     justify-content: space-between;
-
+    
+    
+    
     padding: 30px;
 
 }

@@ -2,17 +2,17 @@
     border-style: solid;
     border-color: black;
     
-    padding: 0.2%;
+    
 
     
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     background-color: white;
     position: absolute;
     font-family: Arial, Helvetica, sans-serif,sans-serif;
     font-weight: bold;
 
-
+    justify-content: space-between;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -28,15 +28,18 @@
     align-self: center;
     justify-self: center;
     text-align: center;
-    width: 60%;
+    height: min-content;
 }
 .left {
-    text-align: center;
+    font-size: 140%;
     align-self: flex-start;   
-    width: 20%;
+    height: min-content;
+    margin-left: 5%;
 }
 .right {
-    text-align: center;
+
+    font-size: 140%;
+    margin-right: 5%;
     align-self: flex-end;
-    width: 20%;
+    height: min-content;
 }

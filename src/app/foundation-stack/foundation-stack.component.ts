@@ -16,9 +16,15 @@ export class FoundationStackComponent implements OnInit {
 
   @Input() foundationStack: FoundationStack;
   suit: string;
-  
+  color: string;
   ngOnInit(): void {
     this.suit = this.tableService.deck.suits[this.foundationStack.suit];
+    if(this.suit === '♥' || this.suit === '♦'){
+      this.color = 'darkred';
+    }
+    else{
+      this.color = 'black';
+    }
   }
 
   drop(event: CdkDragDrop<TableauStack>) {

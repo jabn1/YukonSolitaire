@@ -1,18 +1,14 @@
 <div  *ngIf="this.card.visible; invisible" [ngStyle]="tableService.cardOverlap[this.faceUp]">
     
     <div *ngIf="faceUp; else down" class="card" [style.color]="color" [ngStyle]="tableService.cardDimension"  >
-        <div class="left">
-            {{value}}
-            <br>
-            {{suit}}           
+        <div class="left" >
+            {{value}} {{suit}}          
         </div>
     
         <div class="center">{{suit}}</div>
     
-        <div class="right">
-            {{suit}}
-            <br>
-            {{value}}
+        <div class="right" >
+            {{suit}} {{value}}
         </div>
     </div>
     
