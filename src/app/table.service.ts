@@ -12,14 +12,15 @@ export class TableService {
   
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
-     this.baseCardDimension = window.innerHeight*(100/1080);
+     this.baseCardDimension = window.innerHeight*(120/1080);
      this.cardDimension = {
       'width': `${this.baseCardDimension}px`,
-      'height': `${this.baseCardDimension*1.5}px`,
-      'border-width': `${0.006*this.baseCardDimension}px`,
+      'height': `${this.baseCardDimension*1.4}px`,
+      'border-width': `1px`,
       'border-radius': `${0.108*this.baseCardDimension}px`,
       'font-size': `${0.15*this.baseCardDimension}px`
     }
+    //'border-width': `${0.006*this.baseCardDimension}px`,
     this.cardOverlap = {true: {'height': `${this.baseCardDimension*0.25}px`}, false: {'height': `${this.baseCardDimension*0.08}px`}}
     
     
