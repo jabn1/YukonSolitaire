@@ -15,7 +15,7 @@
     </div>
 </div> -->
 
-<div class="general-container">
+<div class="general-container" (window:resize)="tableService.onResize($event)">
     <div cdkDropListGroup class="grid-container">
         
         <div *ngFor="let tableauStack of tableService.table.tableau" >

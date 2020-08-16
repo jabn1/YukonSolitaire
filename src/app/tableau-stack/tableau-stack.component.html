@@ -6,7 +6,7 @@
         (cdkDropListDropped)="drop($event)"
         
         >
-        <div class="tableau" [style]="tableService.cardDimension"></div>
+        <div class="tableau" [ngStyle]="tableService.cardDimension"></div>
         <div *ngFor="let cardFD of faceDownCards" >
             <app-card  [faceUp]="false" [card]="cardFD" ></app-card>
         </div>

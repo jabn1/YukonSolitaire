@@ -3,9 +3,9 @@
 (cdkDropListDropped)="drop($event)"
 >
 
-    <div *ngIf="foundationStack.stack.length === 0; else lastCard" class="foundation" [style]="tableService.cardDimension"><span class="element">{{suit}}</span></div>
+    <div *ngIf="foundationStack.stack.length === 0; else lastCard" class="foundation" [ngStyle]="tableService.cardDimension"><span class="element">{{suit}}</span></div>
     <ng-template #lastCard>
-        <div *ngFor="let card of [this.foundationStack.stack[this.foundationStack.stack.length-1]]" class="foundation-card" [style]="tableService.cardDimension">
+        <div *ngFor="let card of [this.foundationStack.stack[this.foundationStack.stack.length-1]]" class="foundation-card" [ngStyle]="tableService.cardDimension">
             <app-card [faceUp]="true" [card]="card" ></app-card>
         </div>
         
