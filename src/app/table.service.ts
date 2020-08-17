@@ -41,9 +41,13 @@ export class TableService {
   
   cardDimension: {};
   newGame(): void {
-    this.currentTime.hours = 0;
-    this.currentTime.minutes = 0;
-    this.currentTime.seconds = 0;
+    this.deck = new Deck();
+    this.deck.populateDeck();
+    this.table = new Table(this.deck);
+    this.table.initialize();
+
+    this.firstMove = new Move(this.table.getClone());
+    this.currentMove = this.firstMove;
 
   }
 
@@ -54,13 +58,15 @@ export class TableService {
   //moves: Table[];
 
   updateMove():void{
-    let tempMove = this.currentMove;
-    this.currentMove.next = new Move(this.table.getClone());
-    this.currentMove = this.currentMove.next;
-    this.currentMove.previous = tempMove;
+    
+    let newMove = new Move(this.table.getClone());
+    newMove.previous = this.currentMove;
+    this.currentMove.next = newMove;
+    this.currentMove = newMove;
+
     this.moveCount++;
     this.moveTotalCount++;
-    console.log('udpdated move');
+    
   }
 
   resetTimeCount():void{
@@ -74,45 +80,33 @@ export class TableService {
   restartGame(): void {
     this.firstMove.next = undefined;
     this.currentMove = this.firstMove;
-    this.table = this.currentMove.currentTable;
-    this.resetTimeCount();
+    this.table = this.currentMove.currentTable.getClone();
+    //this.resetTimeCount();
   }
 
   goBack():void{
     if(this.currentMove.previous !== undefined){
       this.currentMove = this.currentMove.previous;
-      this.table = this.currentMove.currentTable;
-      console.log('go back');
+      this.table = this.currentMove.currentTable.getClone();
+      
     }
-    else{
-      console.log('cant go back');
-    }
+    
     
   }
   goForwards():void{
     if(this.currentMove.next !== undefined){
       this.currentMove = this.currentMove.next;
-      this.table = this.currentMove.currentTable;
-      console.log('go forwards');
+      this.table = this.currentMove.currentTable.getClone();
+      
     }
-    else{
-      console.log('cant go forwards');
-    }
+    
     
   }
   constructor() {
     this.onResize();
-
+    this.newGame();
     
-    this.deck = new Deck();
-    this.deck.populateDeck();
-    this.table = new Table(this.deck);
-    this.table.initialize();
-    //this.moves = [];
-    //this.moves[0] = this.table;
-
-    this.firstMove = new Move(this.table.getClone());
-    this.currentMove = this.firstMove;
+    
     
   }
 }
