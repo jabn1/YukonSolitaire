@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Table } from "./Models/table";
 import { Deck } from './Models/deck';
+import { Move } from './Models/move';
 import { HostListener } from "@angular/core";
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,14 @@ export class TableService {
   
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
-     this.baseCardDimension = window.innerHeight*(120/1080);
+     if(window.innerHeight > 600){
+      this.baseCardDimension = window.innerHeight*(120/1080);
+     }
+     else{
+      this.baseCardDimension = 600*(120/1080);
+     }
+
+     //this.baseCardDimension = window.innerHeight*(120/1080);
      this.cardDimension = {
       'width': `${this.baseCardDimension}px`,
       'height': `${this.baseCardDimension*1.4}px`,
@@ -26,17 +34,72 @@ export class TableService {
     
   }
   
+  currentTime: {hours: number,minutes: number, seconds: number};
 
   baseCardDimension: number;
   cardOverlap: {};
   
   cardDimension: {};
-  
+  newGame(): void {
+    this.currentTime.hours = 0;
+    this.currentTime.minutes = 0;
+    this.currentTime.seconds = 0;
 
-  restartGame(): void {
-    
   }
 
+  moveCount: number;
+  moveTotalCount: number;
+  currentMove: Move;
+  firstMove: Move;
+  //moves: Table[];
+
+  updateMove():void{
+    let tempMove = this.currentMove;
+    this.currentMove.next = new Move(this.table.getClone());
+    this.currentMove = this.currentMove.next;
+    this.currentMove.previous = tempMove;
+    this.moveCount++;
+    this.moveTotalCount++;
+    console.log('udpdated move');
+  }
+
+  resetTimeCount():void{
+    this.currentTime.hours = 0;
+    this.currentTime.minutes = 0;
+    this.currentTime.seconds = 0;
+    this.moveCount = 0;
+    this.moveTotalCount = 0;
+  }
+
+  restartGame(): void {
+    this.firstMove.next = undefined;
+    this.currentMove = this.firstMove;
+    this.table = this.currentMove.currentTable;
+    this.resetTimeCount();
+  }
+
+  goBack():void{
+    if(this.currentMove.previous !== undefined){
+      this.currentMove = this.currentMove.previous;
+      this.table = this.currentMove.currentTable;
+      console.log('go back');
+    }
+    else{
+      console.log('cant go back');
+    }
+    
+  }
+  goForwards():void{
+    if(this.currentMove.next !== undefined){
+      this.currentMove = this.currentMove.next;
+      this.table = this.currentMove.currentTable;
+      console.log('go forwards');
+    }
+    else{
+      console.log('cant go forwards');
+    }
+    
+  }
   constructor() {
     this.onResize();
 
@@ -45,5 +108,11 @@ export class TableService {
     this.deck.populateDeck();
     this.table = new Table(this.deck);
     this.table.initialize();
+    //this.moves = [];
+    //this.moves[0] = this.table;
+
+    this.firstMove = new Move(this.table.getClone());
+    this.currentMove = this.firstMove;
+    
   }
 }

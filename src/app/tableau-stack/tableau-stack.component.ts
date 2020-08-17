@@ -29,6 +29,7 @@ export class TableauStackComponent implements OnInit {
       event.container.data.pushCards(cards);
       
       event.previousContainer.data.flipTopCard();
+      this.tableService.updateMove();
     }
   }
 

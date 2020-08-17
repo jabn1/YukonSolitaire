@@ -33,9 +33,8 @@ export class FoundationStackComponent implements OnInit {
     if(this.foundationStack.canPushCard(selectedCard) && allow){
       event.previousContainer.data.spliceCards(event.previousIndex);
       this.foundationStack.pushCard(selectedCard);
-   
-      console.log(this.foundationStack.stack.length);
       event.previousContainer.data.flipTopCard();
+      this.tableService.updateMove();
     }
       
   }
