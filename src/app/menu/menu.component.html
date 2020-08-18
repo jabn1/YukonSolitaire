@@ -8,6 +8,6 @@
     <div (click)="this.tableService.goBack()">Back</div>
     <div (click)="this.tableService.goForwards()">Forward</div>
     <div>Start/Stop</div>
-    <div>Moves:</div>
+    <div>Moves: {{this.tableService.moveCount}}/{{this.tableService.moveTotalCount}}</div>
     <div>Time:</div>
 </div>

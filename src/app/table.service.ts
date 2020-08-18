@@ -48,7 +48,7 @@ export class TableService {
 
     this.firstMove = new Move(this.table.getClone());
     this.currentMove = this.firstMove;
-
+    this.resetTimeCount();
   }
 
   moveCount: number;
@@ -81,14 +81,15 @@ export class TableService {
     this.firstMove.next = undefined;
     this.currentMove = this.firstMove;
     this.table = this.currentMove.currentTable.getClone();
-    //this.resetTimeCount();
+    this.resetTimeCount();
   }
 
   goBack():void{
     if(this.currentMove.previous !== undefined){
       this.currentMove = this.currentMove.previous;
       this.table = this.currentMove.currentTable.getClone();
-      
+      this.moveCount--;
+      this.moveTotalCount++;
     }
     
     
@@ -97,15 +98,18 @@ export class TableService {
     if(this.currentMove.next !== undefined){
       this.currentMove = this.currentMove.next;
       this.table = this.currentMove.currentTable.getClone();
-      
+      this.moveCount++;
+      this.moveTotalCount++;
     }
     
     
   }
   constructor() {
+    this.currentTime = {hours:0,minutes:0,seconds:0};
+
     this.onResize();
     this.newGame();
-    
+    this.resetTimeCount()
     
     
   }
