@@ -11,7 +11,7 @@ export class Table {
         this.tableau = [];
         this.deck = deck;
     }
-    isComplet():boolean{
+    isComplete():boolean{
         let count: number = 0;
         this.foundation.forEach(foundationStack=>{
             count += foundationStack.stack.length;

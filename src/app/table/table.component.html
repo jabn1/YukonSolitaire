@@ -1,5 +1,5 @@
 
-<div class="general-container" (window:resize)="tableService.onResize($event)">
+<div *ngIf="this.tableService.isActive; else paused" class="general-container" (window:resize)="tableService.onResize($event)">
     <div cdkDropListGroup class="grid-container" [ngStyle]="{'width.px': tableService.baseCardDimension*9.6}" >
         
         <div *ngFor="let tableauStack of tableService.table.tableau" >
@@ -13,4 +13,12 @@
         </div>
         
     </div>
+    <div *ngIf="this.tableService.isFinished" style="font-size: 300%; position: relative;">
+        Congratulations! You completed the game.<br>
+        <div>Moves: {{this.tableService.moveCount}}/{{this.tableService.moveTotalCount}}</div>
+        <div>Time:  {{this.tableService.currentTime.hours}}:{{this.tableService.currentTime.minutes}}:{{this.tableService.currentTime.seconds}}</div>
+    </div>
 </div>
+<ng-template #paused>
+    <div  class="general-container" style="font-size: 400%;">Paused</div>
+</ng-template>

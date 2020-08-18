@@ -3,6 +3,7 @@ import { Table } from "./Models/table";
 import { Deck } from './Models/deck';
 import { Move } from './Models/move';
 import { HostListener } from "@angular/core";
+import { Router, NavigationEnd } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
@@ -34,7 +35,37 @@ export class TableService {
     
   }
   
-  currentTime: {hours: number,minutes: number, seconds: number};
+  currentTime: {hours: string, minutes: string, seconds: string};
+  startTime: number;
+  interval: number;
+  isActive: boolean;
+  canStart: boolean;
+
+  isFinished: boolean;
+
+  startStop(){
+    
+    if(!this.isFinished){
+      if(this.isActive){
+        this.isActive=false;
+        clearInterval(this.interval);
+        this.startTime = (new Date()).valueOf() - this.startTime;
+      }
+      else{
+        if(!this.canStart){
+          this.router.navigateByUrl('/');
+        }
+        this.isActive = true;
+        this.startTime= (new Date()).valueOf() - this.startTime;
+        this.interval = setInterval(() => {
+          if(this.currentTime !== undefined){
+            this.updateTime();
+          }
+        },1000);
+      }
+    }
+
+  }
 
   baseCardDimension: number;
   cardOverlap: {};
@@ -49,13 +80,14 @@ export class TableService {
     this.firstMove = new Move(this.table.getClone());
     this.currentMove = this.firstMove;
     this.resetTimeCount();
+    
   }
 
   moveCount: number;
   moveTotalCount: number;
   currentMove: Move;
   firstMove: Move;
-  //moves: Table[];
+  
 
   updateMove():void{
     
@@ -66,16 +98,32 @@ export class TableService {
 
     this.moveCount++;
     this.moveTotalCount++;
-    
+    this.isFinished = this.table.isComplete();
+    if(this.isFinished){
+      this.pauseGame();
+    }
   }
 
   resetTimeCount():void{
-    this.currentTime.hours = 0;
-    this.currentTime.minutes = 0;
-    this.currentTime.seconds = 0;
+    this.currentTime.hours = '0';
+    this.currentTime.minutes = '0';
+    this.currentTime.seconds = '0';
+
     this.moveCount = 0;
     this.moveTotalCount = 0;
+    this.startTime = (new Date()).valueOf();
+    
+    
+    this.interval = setInterval(() => {
+      if(this.currentTime !== undefined){
+        this.updateTime();
+      }
+    },1000);
+    this.isActive = true;
+
+    
   }
+
 
   restartGame(): void {
     this.firstMove.next = undefined;
@@ -83,9 +131,13 @@ export class TableService {
     this.table = this.currentMove.currentTable.getClone();
     this.resetTimeCount();
   }
-
+  pauseGame():void{
+    if(this.isActive){
+      this.startStop();
+    }
+  }
   goBack():void{
-    if(this.currentMove.previous !== undefined){
+    if((this.currentMove.previous !== undefined) && this.isActive && !this.isFinished){
       this.currentMove = this.currentMove.previous;
       this.table = this.currentMove.currentTable.getClone();
       this.moveCount--;
@@ -95,21 +147,46 @@ export class TableService {
     
   }
   goForwards():void{
-    if(this.currentMove.next !== undefined){
+    if((this.currentMove.next !== undefined) && this.isActive && !this.isFinished){
       this.currentMove = this.currentMove.next;
       this.table = this.currentMove.currentTable.getClone();
       this.moveCount++;
       this.moveTotalCount++;
     }
-    
+  }
+  updateTime():void{
+    let tempValue: number;
+    let newDate = new Date();
+    let timeDiff = (newDate.valueOf() - this.startTime)/1000;
+   
+    tempValue = Math.floor(timeDiff/3600);
+    this.currentTime.hours = tempValue.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
+    timeDiff -= tempValue*3600;
+    tempValue = Math.floor(timeDiff/60);
+    this.currentTime.minutes = tempValue.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
+    timeDiff -= tempValue*60;
+    this.currentTime.seconds = Math.floor(timeDiff).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
     
   }
-  constructor() {
-    this.currentTime = {hours:0,minutes:0,seconds:0};
+  constructor(private router: Router) {
+
+    this.router.events.subscribe((ev) => {
+      if (ev instanceof NavigationEnd) {
+        if(ev.urlAfterRedirects !== '/'){
+          this.pauseGame();
+          this.canStart = false;
+        }
+        else{
+          this.canStart = true;
+        }
+      }
+    });
+
+    this.currentTime = {hours:'0',minutes:'0',seconds:'0'};
 
     this.onResize();
     this.newGame();
-    this.resetTimeCount()
+    
     
     
   }

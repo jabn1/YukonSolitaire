@@ -1,5 +1,5 @@
 <div style="background-color: gainsboro;">
-    <h1>Yukon Solitaire</h1>
+    <h1><a routerLink="">Yukon Solitaire</a></h1>
     <div><a routerLink="/rules">How to play</a></div>
     <div><a routerLink="/about">About</a></div>
     
@@ -7,7 +7,7 @@
     <div (click)="this.tableService.newGame()">New game</div>
     <div (click)="this.tableService.goBack()">Back</div>
     <div (click)="this.tableService.goForwards()">Forward</div>
-    <div>Start/Stop</div>
+    <div (click)="this.tableService.startStop()">Start/Stop</div>
     <div>Moves: {{this.tableService.moveCount}}/{{this.tableService.moveTotalCount}}</div>
-    <div>Time:</div>
+    <div>Time:  {{this.tableService.currentTime.hours}}:{{this.tableService.currentTime.minutes}}:{{this.tableService.currentTime.seconds}}</div>
 </div>
