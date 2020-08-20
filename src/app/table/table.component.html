@@ -1,12 +1,12 @@
 
-<div *ngIf="this.tableService.isActive; else paused" class="general-container" (window:resize)="tableService.onResize($event)">
+<div *ngIf="this.tableService.isActive || this.tableService.isFinished; else paused" class="general-container" (window:resize)="tableService.onResize($event)">
     <div cdkDropListGroup class="grid-container" [ngStyle]="{'width.px': tableService.baseCardDimension*9.6}" >
         
         <div *ngFor="let tableauStack of tableService.table.tableau" >
             <app-tableau-stack [tableauStack]="tableauStack"></app-tableau-stack>
         </div>
         <div class="foundation">
-            <div *ngFor="let foundationStack of tableService.table.foundation">
+            <div *ngFor="let foundationStack of tableService.table.foundation" >
                 <app-foundation-stack [foundationStack]="foundationStack"></app-foundation-stack>
                 <br>
             </div>   
@@ -20,5 +20,5 @@
     </div>
 </div>
 <ng-template #paused>
-    <div  class="general-container" style="font-size: 400%;">Paused</div>
+    <div  class="general-container" style="font-size: 400%; text-align: center; height: 60vh; width: 60vw;"><br><br>Paused</div>
 </ng-template>
