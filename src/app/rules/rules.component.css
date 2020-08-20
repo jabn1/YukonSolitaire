@@ -1,0 +1,11 @@
+.text {
+    background-color: #eeeeee;
+    font-size: 3vh;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    justify-self: right; 
+    position: absolute; 
+    padding: 2%;
+    padding-top: 0;
+    margin: 2%;
+    margin-right: 10%;
+}

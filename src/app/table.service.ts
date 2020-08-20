@@ -105,9 +105,9 @@ export class TableService {
   }
 
   resetTimeCount():void{
-    this.currentTime.hours = '0';
-    this.currentTime.minutes = '0';
-    this.currentTime.seconds = '0';
+    this.currentTime.hours = '00';
+    this.currentTime.minutes = '00';
+    this.currentTime.seconds = '00';
 
     this.moveCount = 0;
     this.moveTotalCount = 0;
@@ -182,7 +182,7 @@ export class TableService {
       }
     });
 
-    this.currentTime = {hours:'0',minutes:'0',seconds:'0'};
+    this.currentTime = {hours:'00',minutes:'00',seconds:'00'};
 
     this.onResize();
     this.newGame();

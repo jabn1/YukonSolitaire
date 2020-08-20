@@ -1,4 +1,6 @@
 # Yukon
+This application lets you play Yukon, a type of solitaire card game that uses a standard deck of 52 French playing cards. This is an open source project that was inspired by Pysol, an excellent desktop application for playing solitaire card games. 
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.5.
 
