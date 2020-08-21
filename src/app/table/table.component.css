@@ -18,8 +18,10 @@
 }
 
 .foundation {
-    display: flex;  
-    flex-direction: column;
- 
+    /* display: flex;  
+    flex-direction: column; */
+    display: grid;
+    grid-template-rows: repeat(4,auto);
+    justify-content: space-evenly;
 }
 

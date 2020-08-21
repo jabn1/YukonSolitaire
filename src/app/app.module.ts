@@ -9,6 +9,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { TableComponent } from './table/table.component';
 import { FoundationStackComponent } from './foundation-stack/foundation-stack.component';
+import { MenuComponent } from './menu/menu.component';
+import { AppRoutingModule } from './app-routing.module';
+import { RulesComponent } from './rules/rules.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -17,12 +21,16 @@ import { FoundationStackComponent } from './foundation-stack/foundation-stack.co
     AddHostDirective,
     TableauStackComponent,
     TableComponent,
-    FoundationStackComponent
+    FoundationStackComponent,
+    MenuComponent,
+    RulesComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    DragDropModule
+    DragDropModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

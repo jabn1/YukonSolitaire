@@ -1,0 +1,35 @@
+<div class="menu" >
+    <h1>&nbsp;<a routerLink="">Yukon Solitaire</a></h1>
+    <ul>
+        <li><a routerLink="/rules"><span class="icon">🗎</span>&nbsp;How to play</a></li>
+        <li><a routerLink="/about"><span class="icon">&#9432;</span>&nbsp;About</a></li>
+        <hr>
+        <li><div (click)="this.tableService.restartGame()"> <span class="icon">&#x21BA;</span>&nbsp;Restart game</div></li>
+        <li><div (click)="this.tableService.newGame()"><span class="icon">+</span>&nbsp;New game</div></li>
+        <hr>
+        <li><div (click)="this.tableService.goBack()"><span class="icon">&#x21A9;</span>&nbsp;Undo</div></li>
+        <li><div (click)="this.tableService.goForwards()"><span class="icon">&#x21AA;</span>&nbsp;Redo</div></li>
+        <li><div (click)="this.tableService.startStop()"><span class="icon"><img style="height: 2vh; width: 2vh;" src="../../assets/pauseResume.png"></span>&nbsp;Pause/Resume</div></li>
+        
+
+        <div class="info">
+            
+            <div><span class="icon"></span>Moves: {{this.tableService.moveCount}}/{{this.tableService.moveTotalCount}}</div>
+            <br>
+            <div><span class="icon"></span>Time:  {{this.tableService.currentTime.hours}}:{{this.tableService.currentTime.minutes}}:{{this.tableService.currentTime.seconds}}</div>
+        </div>
+        
+    </ul>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</div>
