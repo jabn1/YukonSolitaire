@@ -72,14 +72,17 @@ export class TableService {
   
   cardDimension: {};
   newGame(): void {
-    this.deck = new Deck();
-    this.deck.populateDeck();
-    this.table = new Table(this.deck);
-    this.table.initialize();
-
-    this.firstMove = new Move(this.table.getClone());
-    this.currentMove = this.firstMove;
-    this.resetTimeCount();
+    if(this.isActive){
+      this.deck = new Deck();
+      this.deck.populateDeck();
+      this.table = new Table(this.deck);
+      this.table.initialize();
+  
+      this.firstMove = new Move(this.table.getClone());
+      this.currentMove = this.firstMove;
+      this.resetTimeCount();
+    }
+    
     
   }
 
@@ -113,7 +116,9 @@ export class TableService {
     this.moveTotalCount = 0;
     this.startTime = (new Date()).valueOf();
     
-    
+    if(this.interval !== undefined){
+      clearInterval(this.interval);
+    }
     this.interval = setInterval(() => {
       if(this.currentTime !== undefined){
         this.updateTime();
@@ -126,10 +131,13 @@ export class TableService {
 
 
   restartGame(): void {
-    this.firstMove.next = undefined;
-    this.currentMove = this.firstMove;
-    this.table = this.currentMove.currentTable.getClone();
-    this.resetTimeCount();
+    if(this.isActive){
+      this.firstMove.next = undefined;
+      this.currentMove = this.firstMove;
+      this.table = this.currentMove.currentTable.getClone();
+      this.resetTimeCount();
+    }
+    
   }
   pauseGame():void{
     if(this.isActive){
@@ -183,7 +191,7 @@ export class TableService {
     });
 
     this.currentTime = {hours:'00',minutes:'00',seconds:'00'};
-
+    this.isActive = true;
     this.onResize();
     this.newGame();
     

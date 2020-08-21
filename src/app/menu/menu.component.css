@@ -6,7 +6,7 @@
     justify-self: left;
     text-decoration: none;
     background-color: #eeeeee;
-    font-size: 3vh;
+    font-size: 2.5vh;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 ul {
@@ -52,4 +52,15 @@ h1 a {
     padding: 8px 16px;
     position: absolute;
     bottom: 0;
+}
+.icon {
+    background-color: #eeeeee;
+    padding-left: 1vh;
+    padding-right: 1vh;
+    border-radius: 1vh;
+    color: black;
+    width: 2vh;
+    float: left;
+    text-align: center;
+    font-family: sans-serif;
 }
