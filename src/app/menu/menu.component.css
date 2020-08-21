@@ -64,3 +64,6 @@ h1 a {
     text-align: center;
     font-family: sans-serif;
 }
+.icon img {
+    height: 2vh; width: 2vh;
+}
