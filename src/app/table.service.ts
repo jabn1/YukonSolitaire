@@ -4,14 +4,57 @@ import { Deck } from './Models/deck';
 import { Move } from './Models/move';
 import { HostListener } from "@angular/core";
 import { Router, NavigationEnd } from '@angular/router';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 @Injectable({
   providedIn: 'root'
 })
 export class TableService {
-  deck: Deck;
-  table: Table;
-
+  //game models
+  deck: Deck; //deck model object of cards of the current game
+  table: Table; //current table model object
   
+  //timer variables
+  currentTime: {hours: string, minutes: string, seconds: string}; //elapsed time to be displayed
+  startTime: number; //starting time of the current game
+  interval: number; //setInterval reference
+  
+  //element size variables
+  baseCardDimension: number; //base card dimension for responsive elment dimensions
+  cardOverlap: {}; //card overlap dimension based
+  cardDimension: {}; //card dimension style object
+  
+  //game state variables
+  moveCount: number; //stores current path move count
+  moveTotalCount: number; //stores game's total move count
+  currentMove: Move; //pointer to current move node
+  firstMove: Move; //pointer to firt move node
+  //game state flags
+  canStart: boolean; //true if the game state allow the Resume action to be done
+  isActive: boolean; //true if the game is running (not paused)
+  isFinished: boolean; // true if the game was finished
+  
+
+  constructor(private router: Router) {
+
+    this.router.events.subscribe((ev) => {
+      if (ev instanceof NavigationEnd) {
+        if(ev.urlAfterRedirects !== '/'){
+          this.pauseGame();
+          this.canStart = false;
+        }
+        else{
+          this.canStart = true;
+        }
+      }
+    });
+
+    this.currentTime = {hours:'00',minutes:'00',seconds:'00'};
+    this.isActive = true;
+    this.onResize();
+    this.newGame();
+
+  }
+
   @HostListener('window:resize', ['$event'])
   onResize(event?) {
      if(window.innerHeight > 600){
@@ -35,13 +78,11 @@ export class TableService {
     
   }
   
-  currentTime: {hours: string, minutes: string, seconds: string};
-  startTime: number;
-  interval: number;
-  isActive: boolean;
-  canStart: boolean;
-
-  isFinished: boolean;
+  pauseGame():void{
+    if(this.isActive){
+      this.startStop();
+    }
+  }
 
   startStop(){
     
@@ -67,10 +108,9 @@ export class TableService {
 
   }
 
-  baseCardDimension: number;
-  cardOverlap: {};
   
-  cardDimension: {};
+
+
   newGame(): void {
     if(this.isActive){
       this.deck = new Deck();
@@ -86,10 +126,16 @@ export class TableService {
     
   }
 
-  moveCount: number;
-  moveTotalCount: number;
-  currentMove: Move;
-  firstMove: Move;
+  restartGame(): void {
+    if(this.isActive){
+      this.firstMove.next = undefined;
+      this.currentMove = this.firstMove;
+      this.table = this.currentMove.currentTable.getClone();
+      this.resetTimeCount();
+    }
+    
+  }
+  
   
 
   updateMove():void{
@@ -103,7 +149,9 @@ export class TableService {
     this.moveTotalCount++;
     this.isFinished = this.table.isComplete();
     if(this.isFinished){
-      this.pauseGame();
+      this.isActive = true;
+      clearInterval(this.interval);
+      this.canStart = false;
     }
   }
 
@@ -125,25 +173,14 @@ export class TableService {
       }
     },1000);
     this.isActive = true;
-
+    this.isFinished = false;
+    this.canStart = false;
     
   }
 
 
-  restartGame(): void {
-    if(this.isActive){
-      this.firstMove.next = undefined;
-      this.currentMove = this.firstMove;
-      this.table = this.currentMove.currentTable.getClone();
-      this.resetTimeCount();
-    }
-    
-  }
-  pauseGame():void{
-    if(this.isActive){
-      this.startStop();
-    }
-  }
+  
+  
   goBack():void{
     if((this.currentMove.previous !== undefined) && this.isActive && !this.isFinished){
       this.currentMove = this.currentMove.previous;
@@ -176,26 +213,5 @@ export class TableService {
     this.currentTime.seconds = Math.floor(timeDiff).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
     
   }
-  constructor(private router: Router) {
-
-    this.router.events.subscribe((ev) => {
-      if (ev instanceof NavigationEnd) {
-        if(ev.urlAfterRedirects !== '/'){
-          this.pauseGame();
-          this.canStart = false;
-        }
-        else{
-          this.canStart = true;
-        }
-      }
-    });
-
-    this.currentTime = {hours:'00',minutes:'00',seconds:'00'};
-    this.isActive = true;
-    this.onResize();
-    this.newGame();
-    
-    
-    
-  }
+  
 }
