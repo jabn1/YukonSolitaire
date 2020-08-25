@@ -29,7 +29,7 @@ export class TableService {
   currentMove: Move; //pointer to current move node
   firstMove: Move; //pointer to firt move node
   //game state flags
-  canStart: boolean; //true if the game state allow the Resume action to be done
+  canStart: boolean; //true if the game state allows the Pause/Resume action to be done
   isActive: boolean; //true if the game is running (not paused)
   isFinished: boolean; // true if the game was finished
   
@@ -50,9 +50,10 @@ export class TableService {
 
     this.currentTime = {hours:'00',minutes:'00',seconds:'00'};
     this.isActive = true;
+    this.canStart = true;
     this.onResize();
     this.newGame();
-
+    //this.finishTest();
   }
 
   @HostListener('window:resize', ['$event'])
@@ -78,6 +79,18 @@ export class TableService {
     
   }
   
+
+  finishTest():void{
+    this.deck = new Deck();
+      this.deck.noShuffleInit();
+      this.table = new Table(this.deck);
+      this.table.finishTestInit();
+  
+      this.firstMove = new Move(this.table.getClone());
+      this.currentMove = this.firstMove;
+      this.resetTimeCount();
+  }
+
   pauseGame():void{
     if(this.isActive){
       this.startStop();
@@ -112,7 +125,7 @@ export class TableService {
 
 
   newGame(): void {
-    if(this.isActive){
+    if(this.isActive && this.canStart){
       this.deck = new Deck();
       this.deck.populateDeck();
       this.table = new Table(this.deck);
@@ -127,7 +140,7 @@ export class TableService {
   }
 
   restartGame(): void {
-    if(this.isActive){
+    if(this.isActive && this.canStart){
       this.firstMove.next = undefined;
       this.currentMove = this.firstMove;
       this.table = this.currentMove.currentTable.getClone();
@@ -151,7 +164,7 @@ export class TableService {
     if(this.isFinished){
       this.isActive = true;
       clearInterval(this.interval);
-      this.canStart = false;
+      this.canStart = true;
     }
   }
 
@@ -174,7 +187,7 @@ export class TableService {
     },1000);
     this.isActive = true;
     this.isFinished = false;
-    this.canStart = false;
+    this.canStart = true;
     
   }
 

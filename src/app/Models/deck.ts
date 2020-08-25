@@ -48,6 +48,15 @@ export class Deck {
         }
     }       
     
+    noShuffleInit():void{
+        //generating all cards
+        for (let i = 1; i <= 13; i++){
+            for (let j = 1; j <= 4; j++){
+                this.cards.push(new Card(j, i));
+            }
+        }
+    }
+
     popCard(): Card{
         //here goes the code to remove one card from the deck
         return this.cards.pop();
